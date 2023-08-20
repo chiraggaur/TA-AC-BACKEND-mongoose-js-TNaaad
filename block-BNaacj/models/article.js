@@ -6,7 +6,7 @@ let userSchema = new Schema({
   age: { type: Number },
   email: { type: String, lowercase: true, trim: true, match: /@/ },
   password: { type: String, minlength: 5, maxlength: 15 },
-  createAt: { type: Date, timestamp: true },
+  createAt: { type: Date, default: new Date() },
 });
 
 // note connect this data page with server with mongoose.connect(url);`
