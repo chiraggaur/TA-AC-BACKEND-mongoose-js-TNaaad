@@ -18,9 +18,22 @@ app.post("/users", (req, res) => {
   users.create(req.body);
 });
 
-app.get("/users/:id", (req, res) => {
+app.get("/users/:id", async (req, res) => {
   let id = req.params.id;
-  console.log(users.find({ _id: `${id}` }));
+  // let data = await users.find({ _id: id });
+  let data = await users.findOne({ _id: id });
+  console.log(data);
+
+  // console.log(await users.findById(id).exec());
+});
+
+app.put("/users/:id", async (req, res) => {
+  let id = req.params.id;
+  const data = await users.updateOne(
+    { name: "asdfgh" },
+    { ship: "USS Enterprise" }
+  );
+  res.send(data);
 });
 
 app.listen(3000, () => {
@@ -33,3 +46,10 @@ app.listen(3000, () => {
 // - use Model.find({\_id: 'some-id'}) // use \_id of inserted document in database
 // - use Model.findOne({\_id: 'some-id'})
 // - use Model.findById(id)
+
+// Q. Update a user
+
+// - on PUT request on '/users/:id', update a user
+// - use Model.update
+// - use Model.updateOne
+// - use Model.findByIdAndUpdate(id)
